@@ -5,12 +5,12 @@
  * this file defines a wrapper class for the caching functions
  */
 
-abstract class WildcardPluginCache010200 implements WildcardPluginCacheInterface010100
+abstract class WildcardPluginCache010300 implements WildcardPluginCacheInterface010200
 {
 	/**
 	 * @const version
 	 */
-	const VERSION = '1.2';
+	const VERSION = '1.3';
 
 	/**
 	 * @var array cache data
@@ -34,8 +34,15 @@ abstract class WildcardPluginCache010200 implements WildcardPluginCacheInterface
 	 * @param  string the name of the entry
 	 * @return bool
 	 */
-	public function read($key)
+	public function read($key = null)
 	{
+		if ($key === null) {
+			if ($this->subKey) {
+				return $this->cacheData[$this->subKey];
+			}
+			return $this->cacheData;
+		}
+
 		if ($this->subKey &&
 			isset($this->cacheData[$this->subKey][$key])) {
 			return $this->cacheData[$this->subKey][$key];
@@ -56,12 +63,20 @@ abstract class WildcardPluginCache010200 implements WildcardPluginCacheInterface
 	 * 	entire cache in the db
 	 * @return void
 	 */
-	public function update($key, $val, $hard = false)
+	public function update($key = null, $val, $hard = false)
 	{
-		if ($this->subKey) {
-			$this->cacheData[$this->subKey][$key] = $val;
+		if ($key === null) {
+			if ($this->subKey) {
+				$this->cacheData[$this->subKey] = $val;
+			} else {
+				$this->cacheData = $val;
+			}
 		} else {
-			$this->cacheData[$key] = $val;
+			if ($this->subKey) {
+				$this->cacheData[$this->subKey][$key] = $val;
+			} else {
+				$this->cacheData[$key] = $val;
+			}
 		}
 		$this->hasChanged($hard);
 	}
