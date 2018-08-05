@@ -551,7 +551,7 @@ class WildcardPluginInstaller010202 implements WildcardPluginInstallerInterface0
 			// now cache the actual files
 			require_once MYBB_ROOT . "{$config['admin_dir']}/inc/functions_themes.php";
 
-			if(!cache_stylesheet(1, $data['cachefile'], $data['stylesheet']))
+			if(!cache_stylesheet(1, $styleSheet['cachefile'], $data['stylesheet']))
 			{
 				$this->db->update_query("themestylesheets", array('cachefile' => "css.php?stylesheet={$sid}"), "sid='{$sid}'", 1);
 			}
