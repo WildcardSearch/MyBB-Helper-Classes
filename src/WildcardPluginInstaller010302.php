@@ -145,6 +145,11 @@ class WildcardPluginInstaller010302 implements WildcardPluginInstallerInterface0
 				}
 				break;
 			case 'columns':
+				if ($db->engine == 'pgsql') {
+					$this->columns = $columns['pgsql'];
+				} else {
+					unset($this->columns['pgsql']);
+				}
 			case 'images':
 				break;
 			case 'tables':
