@@ -9,12 +9,12 @@
  *
  */
 
-class WildcardPluginInstaller010301 implements WildcardPluginInstallerInterface010000
+class WildcardPluginInstaller010302 implements WildcardPluginInstallerInterface010000
 {
 	/**
 	 * @const version
 	 */
-	const VERSION = '1.3.1';
+	const VERSION = '1.3.2';
 
 	/**
 	 * @var object a copy of the MyBB db object
@@ -145,6 +145,11 @@ class WildcardPluginInstaller010301 implements WildcardPluginInstallerInterface0
 				}
 				break;
 			case 'columns':
+				if ($db->engine == 'pgsql') {
+					$this->columns = $columns['pgsql'];
+				} else {
+					unset($this->columns['pgsql']);
+				}
 			case 'images':
 				break;
 			case 'tables':
@@ -281,16 +286,10 @@ class WildcardPluginInstaller010301 implements WildcardPluginInstallerInterface0
 		}
 
 		foreach ($columns as $table => $allColumns) {
-			$sep = $addedColumns = '';
 			foreach ($allColumns as $title => $definition) {
 				if (!$this->fieldExists($table, $title)) {
-					$addedColumns .= "{$sep}{$title} {$definition}";
-					$sep = ', ADD ';
+					$this->db->add_column($table, $title, $definition);
 				}
-			}
-			if (strlen($addedColumns) > 0) {
-				// trickery, again
-				$this->db->add_column($table, $addedColumns, '');
 			}
 		}
 	}
@@ -309,16 +308,10 @@ class WildcardPluginInstaller010301 implements WildcardPluginInstallerInterface0
 		}
 
 		foreach ($this->columns as $table => $columns) {
-			$sep = $droppedColumns = '';
 			foreach ($columns as $title => $definition) {
 				if ($this->fieldExists($table, $title)) {
-					$droppedColumns .= "{$sep}{$title}";
-					$sep = ', DROP ';
+					$this->db->drop_column($table, $title);
 				}
-			}
-			if (strlen($droppedColumns) > 0) {
-				// tricky, tricky xD
-				$result = $this->db->drop_column($table, $droppedColumns);
 			}
 		}
 	}
