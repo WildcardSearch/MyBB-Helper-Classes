@@ -8,7 +8,7 @@
  * a standard wrapper for external PHP routines built upon the
  * MalleableObject abstract class and abiding by ExternalModuleInterface
  */
-abstract class ExternalModule020000 extends MalleableObject010000 implements ExternalModuleInterface020000
+abstract class ExternalModule020100 extends MalleableObject010000 implements ExternalModuleInterface020100
 {
 	/**
 	 * @var string the module title
