@@ -4,7 +4,7 @@
  * ConfigurableModule Class Structure
  */
 
-abstract class ConfigurableModule010100 extends ExternalModule020000 implements ConfigurableModuleInterface010000
+abstract class ConfigurableModule010100 extends ExternalModule020100 implements ConfigurableModuleInterface010000
 {
 	/**
 	 * @var array
