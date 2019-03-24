@@ -37,7 +37,10 @@ abstract class PortableObject010101 extends StorableObject010001 implements Port
 		if ($return === true) {
 			return $xml;
 		}
+
 		$this->output($xml, $options);
+
+		return true;
 	}
 
 	/**
