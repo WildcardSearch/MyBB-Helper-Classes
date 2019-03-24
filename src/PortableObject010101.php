@@ -141,7 +141,7 @@ EOF;
 	 *
 	 * @return string|bool the XML markup or false on fail
 	 */
-	public function buildRows()
+	public function buildRow()
 	{
 		// object must have been saved (it exists in the db) in order to be exported
 		if (!$this->tableName ||
