@@ -9,7 +9,7 @@
  * XML file and to output a row to be included in a collection exported by
  * an outside function
  */
-abstract class PortableObject010100 extends StorableObject010000 implements PortableObjectInterface010100
+abstract class PortableObject010101 extends StorableObject010001 implements PortableObjectInterface010100
 {
 	/**
 	 * provides export functionality for any StorableObject
