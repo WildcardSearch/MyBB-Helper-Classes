@@ -69,7 +69,8 @@ abstract class PortableObject010100 extends StorableObject010000 implements Port
 				}
 
 				// get the field name from the array key
-				$newKey = explode('-', $key)[0];
+				$newKey = explode('-', $key);
+				$newKey = $newKey[0];
 
 				// is it a valid property name for this object?
 				if (property_exists($this, $newKey)) {
