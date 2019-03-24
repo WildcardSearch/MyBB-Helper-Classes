@@ -24,7 +24,7 @@ abstract class PortableObject010101 extends StorableObject010001 implements Port
 			return false;
 		}
 
-		$rows = $this->buildRow();
+		$row = $this->buildRow();
 		$id = (int) $this->id;
 
 		if (!$row) {
